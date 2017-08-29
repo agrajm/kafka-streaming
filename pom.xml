@@ -1,0 +1,409 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.examples.spark.streaming</groupId>
+  <artifactId>kafka-streaming</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>kafka-streaming</name>
+  <url>http://maven.apache.org</url>
+
+
+  <properties>
+    <hadoop.version>2.7.3</hadoop.version>
+    <hadoop.azure.version>2.7.3</hadoop.azure.version>
+    <scala.version>2.11.8</scala.version>
+    <scala.version.suffix>2.11</scala.version.suffix>
+    <pipeline.protocol.version>10.0.2-SNAPSHOT</pipeline.protocol.version>
+    <slf4j.version>1.7.5</slf4j.version>
+    <log4j.version>1.2.17</log4j.version>
+    <spark.version>2.2.0</spark.version>
+    <sparksql.protobuf.version>0.1.2</sparksql.protobuf.version>
+    <hbase.protocol.version>1.3.0</hbase.protocol.version>
+    <hbase.client.version>1.3.0</hbase.client.version>
+    <hbase.testing.util.version>1.3.0</hbase.testing.util.version>
+
+    <parquet.protobuf.version>1.8.1</parquet.protobuf.version>
+    <parquet.hadoop.version>1.8.1</parquet.hadoop.version>
+    <commons-logging.version>1.2</commons-logging.version>
+    <scala.logging.version>2.1.2</scala.logging.version>
+    <scalacheck.version>1.12.5</scalacheck.version>
+    <config.version>1.2.1</config.version>
+    <protobuf.java.version>2.5.0</protobuf.java.version>
+    <protobuf.java.format.version>1.4</protobuf.java.format.version>
+    <scalatest.version>3.0.1</scalatest.version>
+    <kafka.version>0.10.1.0</kafka.version>
+    <!--<guava.version>14.0.1</guava.version>-->
+    <mockito.version>1.9.5</mockito.version>
+    <maven.assembly.plugin.version>3.0.0</maven.assembly.plugin.version>
+    <scalatest-jvm-args>-XX:MaxPermSize=512m</scalatest-jvm-args>
+    <siphon.commons.version>1.8-SNAPSHOT</siphon.commons.version>
+    <scoverage.plugin.version>1.3.0</scoverage.plugin.version>
+    <scoverage.aggregate>true</scoverage.aggregate>
+    <http.client.version>4.4</http.client.version>
+    <jackson.version>2.6.0</jackson.version>
+    <azure.blob-storage.version>2.0.0</azure.blob-storage.version>
+    <metrics.version>3.0.2</metrics.version>
+    <!--<marathon.client.version>0.4.2</marathon.client.version>-->
+    <!--<surefire.version>2.6</surefire.version>-->
+    <hadoop.datalake.store.version>2.1.4</hadoop.datalake.store.version>
+    <azure.keyvault.core.version>1.0.0</azure.keyvault.core.version>
+    <azure.keyvault.version>1.0.0</azure.keyvault.version>
+    <azure.client.authentication.version>1.0.0</azure.client.authentication.version>
+    <!--<jedis.version>2.9.0</jedis.version>-->
+  </properties>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-reflect</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${log4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>${commons-logging.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe.scala-logging</groupId>
+      <artifactId>scala-logging-slf4j_${scala.version.suffix}</artifactId>
+      <version>${scala.logging.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.scalacheck</groupId>
+      <artifactId>scalacheck_${scala.version.suffix}</artifactId>
+      <version>${scalacheck.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.typesafe</groupId>
+      <artifactId>config</artifactId>
+      <version>${config.version}</version>
+    </dependency>
+
+    <!-- Kafka -->
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka-clients</artifactId>
+      <version>${kafka.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.kafka</groupId>
+      <artifactId>kafka_${scala.version.suffix}</artifactId>
+      <version>${kafka.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${http.client.version}</version>
+    </dependency>
+
+    <!--- Spark & Spark Streaming Deps -->
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming_${scala.version.suffix}</artifactId>
+      <version>${spark.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming-kafka-0-10_${scala.version.suffix}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_${scala.version.suffix}</artifactId>
+      <scope>provided</scope>
+      <version>${spark.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_${scala.version.suffix}</artifactId>
+      <version>${spark.version}</version>
+    </dependency>
+
+
+    <!-- Parquet, Protobuf, HBase etc
+    <dependency>
+      <groupId>com.github.saurfang</groupId>
+      <artifactId>sparksql-protobuf_2.10</artifactId>
+      <version>${sparksql.protobuf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.parquet</groupId>
+      <artifactId>parquet-protobuf</artifactId>
+      <version>${parquet.protobuf.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.parquet</groupId>
+      <artifactId>parquet-hadoop</artifactId>
+      <version>${parquet.hadoop.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-client</artifactId>
+      <version>${hbase.protocol.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-protocol</artifactId>
+      <version>${hbase.client.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-annotations</artifactId>
+      <version>${hbase.client.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-auth</artifactId>
+      <version>${hadoop.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-data-lake-store-sdk</artifactId>
+      <version>${hadoop.datalake.store.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-common</artifactId>
+      <version>${hadoop.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client</artifactId>
+      <version>${hadoop.version}</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.mortbay.jetty</groupId>
+          <artifactId>jetty-util</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>-->
+
+
+    <dependency>
+      <groupId>com.google.protobuf</groupId>
+      <artifactId>protobuf-java</artifactId>
+      <version>${protobuf.java.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.protobuf-java-format</groupId>
+      <artifactId>protobuf-java-format</artifactId>
+      <version>${protobuf.java.format.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-storage</artifactId>
+      <version>${azure.blob-storage.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-azure</artifactId>
+      <version>${hadoop.azure.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- Need these two jackson packages explicitly so we align the versions correctly.
+               If not these are set then jackson package versions used are different based
+               on dependencies.
+          -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-core_${scala.version.suffix}</artifactId>
+      <version>2.4.16</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.version.suffix}</artifactId>
+      <version>${scalatest.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+      <scope>test</scope>
+      <version>${mockito.version}</version>
+    </dependency>
+
+
+    <!-- Lz4, Azure KeyVault, Authentication, Jedis etc
+
+    <dependency>
+      <groupId>net.jpountz.lz4</groupId>
+      <artifactId>lz4</artifactId>
+      <version>1.3</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-keyvault-core</artifactId>
+      <version>${azure.keyvault.core.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-keyvault</artifactId>
+      <version>${azure.keyvault.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-client-authentication</artifactId>
+      <version>${azure.client.authentication.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>${jedis.version}</version>
+    </dependency> -->
+
+
+  </dependencies>
+
+
+
+  <repositories>
+    <repository>
+      <id>repo</id>
+      <releases>
+        <enabled>true</enabled>
+        <checksumPolicy>ignore</checksumPolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <url>file://${project.basedir}/../repo</url>
+    </repository>
+
+    <repository>
+      <id>azure-keyvault-core</id>
+      <name>Azure Keyvault Core</name>
+      <url>https://mvnrepository.com/artifact/com.microsoft.azure/azure-keyvault-core</url>
+    </repository>
+    <repository>
+      <id>jedis</id>
+      <name>jedis</name>
+      <url>https://mvnrepository.com/artifact/redis.clients/jedis</url>
+    </repository>
+
+    <repository>
+      <id>bintray</id>
+      <name>bintray</name>
+      <url>https://dl.bintray.com/spark-jobserver/maven</url>
+    </repository>
+
+    <repository>
+      <id>jcenter</id>
+      <name>jcenter</name>
+      <url>https://jcenter.bintray.com/</url>
+    </repository>
+
+    <repository>
+      <id>cloudera</id>
+      <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+    </repository>
+
+    <repository>
+      <id>apache-snapshots</id>
+      <url>http://repository.apache.org/snapshots/</url>
+    </repository>
+
+  </repositories>
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    <plugins>
+
+      <!-- TODO: Use maven-assembly-plugin to create FAT jar -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.examples.streaming.StreamingApp</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.scoverage</groupId>
+        <artifactId>scoverage-maven-plugin</artifactId>
+        <version>${scoverage.plugin.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
