@@ -132,17 +132,19 @@
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-streaming-kafka-0-10_${scala.version.suffix}</artifactId>
       <version>${spark.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-core_${scala.version.suffix}</artifactId>
-      <scope>provided</scope>
       <version>${spark.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.spark</groupId>
       <artifactId>spark-sql_${scala.version.suffix}</artifactId>
       <version>${spark.version}</version>
+      <scope>provided</scope>
     </dependency>
 
 
@@ -395,6 +397,27 @@
               <mainClass>com.examples.streaming.StreamingApp</mainClass>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>3.1.6</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <args>
+            <!-- work-around for https://issues.scala-lang.org/browse/SI-8358 -->
+            <arg>-nobootcp</arg>
+          </args>
         </configuration>
       </plugin>
 
